@@ -84,7 +84,7 @@ class Container extends Component {
         if(index === 1){
             logout();
         }
-        console.log(index);
+        //console.log(index);
     }
 }
 

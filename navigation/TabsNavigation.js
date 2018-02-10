@@ -94,7 +94,7 @@ const TabsNavigation = TabNavigator(
                 height: 45
             }
         },
-        swipeEnabled: true,
+        //swipeEnabled: true,
         animationEnabled: true
     }
 );

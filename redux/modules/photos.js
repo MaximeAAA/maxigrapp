@@ -7,6 +7,8 @@ import uuidv1 from "uuid/v1";
 
 const SET_FEED = "SET_FEED";
 const SET_SEARCH = "SET_SEARCH";
+const SET_PHOTO = "SET_PHOTO";
+const SET_PHOTO_LIKES = "SET_PHOTO_LIKES";
 
 // Action Creators
 
@@ -21,6 +23,20 @@ function setSearch(search){
     return {
         type: SET_SEARCH,
         search
+    }
+}
+
+function setPhoto(photo){
+    return {
+        type: SET_PHOTO,
+        photo
+    }
+}
+
+function setPhotoLikes(likes){
+    return {
+        type: SET_PHOTO_LIKES,
+        likes
     }
 }
 
@@ -168,6 +184,48 @@ function uploadPhoto(file, caption, location, tags){
     }
 }
 
+function getPhoto(photoId) {
+    return (dispatch, getState) => {
+        const { user : { token } } = getState();
+        fetch(`${API_URL}/images/${photoId}/`, {
+            headers: {
+                Authorization: `JWT ${token}`
+            }
+        })
+        .then(response => {
+            if(response.status === 401){
+                dispatch(userActions.logout());
+            } else {
+                return response.json();
+            }
+        })
+        .then(json => {
+            dispatch(setPhoto(json));
+        });
+    }
+}
+
+function getPhotoLikes(photoId) {
+    return (dispatch, getState) => {
+        const { user : { token } } = getState();
+        fetch(`${API_URL}/images/${photoId}/likes/`, {
+            headers: {
+                Authorization: `JWT ${token}`
+            }
+        })
+        .then(response => {
+            if(response.status === 401){
+                dispatch(userActions.logout());
+            } else {
+                return response.json();
+            }
+        })
+        .then(json => {
+            dispatch(setPhotoLikes(json));
+        });
+    }
+}
+
 // Initial State
 const initialState = {
 }
@@ -179,6 +237,10 @@ function reducer(state = initialState, action){
             return applySetFeed(state, action);
         case SET_SEARCH:
             return applySetSearch(state, action);
+        case SET_PHOTO:
+            return applySetPhoto(state, action);
+        case SET_PHOTO_LIKES:
+            return applySetPhotoLikes(state, action);
         default:
             return state;
     }
@@ -201,6 +263,22 @@ function applySetSearch(state, action){
     };
 }
 
+function applySetPhoto(state, action){
+    const { photo } = action;
+    return {
+        ...state,
+        photo
+    };
+}
+
+function applySetPhotoLikes(state, action){
+    const { likes } = action;
+    return {
+        ...state,
+        likes
+    };
+}
+
 // Exports
 const actionCreators = {
   getFeed,
@@ -208,7 +286,9 @@ const actionCreators = {
   likePhoto,
   unlikePhoto,
   searchByHashtag,
-  uploadPhoto
+  uploadPhoto,
+  getPhoto,
+  getPhotoLikes
 };
 export { actionCreators };
 

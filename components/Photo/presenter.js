@@ -52,6 +52,7 @@ const Photo = props => (
     </FadeIn>
     <View style={styles.photoMeta}>
       <PhotoActions
+        photoId={props.id}
         isLiked={props.isLiked}
         likeCount={props.likeCount}
         handlePress={props.handlePress}

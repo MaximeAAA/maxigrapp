@@ -41,8 +41,18 @@ class Container extends Component {
 
     };
 
+    componentWillReceiveProps = nextProps => {
+        // state와 props을 연결시 처음에는 정상이나 두번이상 로딩시 값을 업데이트 못해서 추가
+        if(nextProps){
+            this.setState({
+              isLiked: nextProps.is_liked,
+              likeCount: nextProps.like_count
+            });
+        }
+        
+    }
+
     render () {
-        //console.log(this.props);
         return <Photo handlePress={this._handlePress} {...this.props} {...this.state} />;
     }
 }

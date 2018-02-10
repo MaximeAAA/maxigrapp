@@ -7,17 +7,13 @@ import FitImage from "react-native-fit-image";
 const { width, height } = Dimensions.get("window");
 
 const SquarePhoto = props => (
-    <TouchableOpacity onPressOut={() => {
-                        console.log(props);
-                        props.navigation.navigate("Photo")
-                    }}
-    >
+    <TouchableOpacity onPressOut={() => props.navigation.navigate("Photo", {photoId: props.photoId})} >
         <FitImage source={{uri: props.imageURL}} style={styles.image} />
     </TouchableOpacity>
 );
 
 SquarePhoto.propTypes = {
-    imageURL: PropTypes.string.isRequired,
+    imageURL: PropTypes.string.isRequired
 
 };
 

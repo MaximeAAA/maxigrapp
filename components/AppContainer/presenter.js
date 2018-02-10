@@ -10,11 +10,23 @@ class AppContainer extends Component {
     initApp: PropTypes.func.isRequired
   };
 
-  componentDidMount() {
+  state = {
+    isInitApp: false
+  }
+
+  componentDidMount = () => {
     const { isLoggedIn, initApp } = this.props;
+    console.log("isLoggedIn", isLoggedIn);
     if (isLoggedIn) {
       initApp();
+      this.setState({ isInitApp: true});
     }
+  }
+  
+  componentWillReceiveProps = nextProps => {
+    //console.log("+++++++++++componentWillReceiveProps++++++++++++++++++", this.state.isInitApp);
+    //console.log(nextProps);
+
   }
 
   render() {

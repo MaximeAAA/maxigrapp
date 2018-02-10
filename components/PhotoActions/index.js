@@ -24,7 +24,7 @@ const PhotoActions = props => (
         </View>
       </TouchableOpacity>
     </View>
-    <TouchableOpacity onPressOut={() => props.navigation.navigate("Likes")}>
+    <TouchableOpacity onPressOut={() => props.navigation.navigate("Likes", {photoId: props.photoId})}>
       <View>
         <Text style={styles.likes}>
           {props.likeCount} {props.likeCount === 1 ? "like" : "likes"}
@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
 });
 
 PhotoActions.propTypes = {
+    photoId: PropTypes.number.isRequired,
     isLiked: PropTypes.bool.isRequired,
     likeCount: PropTypes.number.isRequired,
     handlePress: PropTypes.func.isRequired

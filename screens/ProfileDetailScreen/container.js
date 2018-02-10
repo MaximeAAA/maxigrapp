@@ -9,10 +9,12 @@ class Container extends Component {
 
     constructor(props) {
         super(props);
+        //console.log("ProfileDetailScreen",props);
         const { navigation : { state : { params : { user } } } } = props;
         this.state = {
             profileObject: user
-        }
+        };
+
     }
 
     componentDidMount = () => {

@@ -15,10 +15,12 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         initApp: () => {
+            console.log("init start");
             dispatch(photoActions.getFeed());
             dispatch(photoActions.getSearch());
             dispatch(userActions.getNotifications());
             dispatch(userActions.getOwnProfile());
+            console.log("init end");
         }
     }
 };

@@ -116,7 +116,7 @@ const Profile = props => (
         <View style={styles.photoContainer}>
           {props.profileObject.images && 
             props.profileObject.images.map(photo => (
-              <SquarePhoto key={photo.id} imageURL={photo.file} />
+              <SquarePhoto key={photo.id} imageURL={photo.file} photoId={photo.id} />
             ))}
         </View>
       )}

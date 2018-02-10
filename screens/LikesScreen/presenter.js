@@ -8,11 +8,11 @@ import {
   StyleSheet,
   Dimensions
 } from "react-native";
-import SquarePhoto from "../../components/SquarePhoto";
+import Like from "../../components/Like";
 
 const { width } = Dimensions.get("window");
 
-const SearchScreen = props => (
+const LikesScreen = props => (
   <ScrollView
     refreshControl={
       <RefreshControl
@@ -23,12 +23,14 @@ const SearchScreen = props => (
     }
   >
     <View style={styles.container}>
-      {props.search.length === 0 && props.searchingBy.length > 1 ? (
-          <Text style={styles.notFound}>No images found for {props.searchingBy}</Text>
+      {props.likes.length === 0 ? (
+        <Text style={styles.notFound}>
+          No likes yet!! Come back sooon!
+        </Text>
       ) : (
-          props.search.map(photo => (
-              <SquarePhoto key={photo.id} imageURL={photo.file} photoId={photo.id} />
-          ))
+        props.likes.map(like => (
+          <Like key={like.id} {...like} />  
+        ))
       )}
     </View>
   </ScrollView>
@@ -37,23 +39,22 @@ const SearchScreen = props => (
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "row",
-    flexWrap: "wrap"
+    backgroundColor: "white"
   },
   notFound: {
-      color: "#bbb",
-      fontWeight: "600",
-      alignSelf: "center",
-      textAlign: "center",
-      width,
-      marginTop: 20
+    color: "#bbb",
+    fontWeight: "600",
+    alignSelf: "center",
+    textAlign: "center",
+    width,
+    marginTop: 20
   }
 });
 
-SearchScreen.propTypes = {
+LikesScreen.propTypes = {
   isFetching: PropTypes.bool.isRequired,
   refresh: PropTypes.func.isRequired,
-  search: PropTypes.array.isRequired
+  likes: PropTypes.array.isRequired
 };
 
-export default SearchScreen;
+export default LikesScreen;
